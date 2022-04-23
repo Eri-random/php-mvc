@@ -1,3 +1,5 @@
+<h1>Registrarse</h1>
+
 <form action="">
     <div class="form-group">
         <label for="email">Email address:</label>

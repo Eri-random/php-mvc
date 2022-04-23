@@ -19,21 +19,21 @@
 
     <div class="container-fluid bg-light">
         <div class="container">
-            <ul class="nav nav-justified py-2 nav-pills">
+            <ul class="nav nav-justified py-2 nav-pills">    
                 <li class="nav-item">
-                    <a href="" class="nav-link">Registro</a>
+                    <a href="index.php?pages=register" class="nav-link">Registro</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">Ingreso</a>
+                    <a href="index.php?pages=login" class="nav-link">Ingreso</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link active">Inicio</a>
+                    <a href="index.php?pages=home" class="nav-link active">Inicio</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">Salir</a>
+                    <a href="index.php?pages=logout" class="nav-link">Salir</a>
                 </li>
             </ul>
         </div>
@@ -45,7 +45,22 @@
 
         <?php
 
-        include "pages/home.php"
+        if(isset($_GET["pages"])){
+
+        if($_GET["pages"] == "register" ||
+        $_GET["pages"] == "home" ||
+        $_GET["pages"] == "logout" ||
+        $_GET["pages"] == "login"){
+
+            include "pages/".$_GET["pages"].".php";
+        }else{
+            include "pages/404.php";
+        }
+
+        }else{
+            include "pages/login.php";
+        }
+
 
         ?>
 
