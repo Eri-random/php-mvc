@@ -20,6 +20,16 @@ class FormController{
 
     }
 
+    static public function ctrSeleccionarRegistros(){
+
+        $tabla = "registros";
+
+        $respuesta = formModel::mdlSeleccionarRegistros($tabla);
+
+        return $respuesta;
+
+    }
+
 }
 
 ?>

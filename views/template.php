@@ -25,11 +25,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?pages=login" class="nav-link">Ingreso</a>
+                    <a href="index.php?pages=login" class="nav-link active">Ingreso</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?pages=home" class="nav-link active">Inicio</a>
+                    <a href="index.php?pages=home" class="nav-link">Inicio</a>
                 </li>
 
                 <li class="nav-item">
