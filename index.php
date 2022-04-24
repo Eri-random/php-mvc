@@ -5,7 +5,7 @@
 
 require_once "controllers/templateController.php";
 require_once "controllers/formController.php";
-
+require_once "models/formModel.php";
 
 $template = new TemplateController();
 

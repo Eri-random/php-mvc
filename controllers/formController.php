@@ -5,7 +5,17 @@ class FormController{
 
         if(isset($_POST["name"])){
 
-            return true;
+            $tabla = "registros";
+
+            $datos = array("nombre" => $_POST["name"],
+                           "email" => $_POST["email"],
+                           "password" => $_POST["pwd"]
+        );
+
+        $respuesta = formModel::mdlRegistro($tabla,$datos);
+
+        return $respuesta;
+
         }
 
     }
