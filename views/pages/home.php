@@ -1,5 +1,18 @@
 <?php
 
+if(!isset($_SESSION["validarIngreso"])){
+
+    echo '<script>window.location= "index.php?pages=login";</script>';
+
+}else{
+    if($_SESSION["validarIngreso"] != "ok"){
+
+        echo '<script>window.location= "index.php?pages=login";</script>';
+    
+        return;
+    }
+}
+
 $usuarios = FormController::ctrSeleccionarRegistros();
 
 ?>
