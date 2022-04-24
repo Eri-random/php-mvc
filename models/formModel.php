@@ -55,6 +55,26 @@ $stmt = null;
 
 }
 
+static public function mdlUpdateRegistration($table, $datos){
+
+   $stmt = Conexion::conectar()->prepare("UPDATE $table SET nombre =:nombre, email=:email, password=:password WHERE id =:id");
+  
+   $stmt->bindParam(":nombre",$datos["nombre"],PDO::PARAM_STR);
+   $stmt->bindParam(":email",$datos["email"],PDO::PARAM_STR);
+   $stmt->bindParam(":password",$datos["password"],PDO::PARAM_STR);
+   $stmt->bindParam(":id",$datos["id"],PDO::PARAM_INT);
+
+  
+   if($stmt->execute()){
+      return true;
+   }else{
+       
+      print_r(Conexion::conectar()->errorInfo());
+   }
+  
+   $stmt->null;
+  }
+
 
 }
 

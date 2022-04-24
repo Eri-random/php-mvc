@@ -13,7 +13,7 @@ if(!isset($_SESSION["validarIngreso"])){
     }
 }
 
-$usuarios = FormController::ctrSeleccionarRegistros();
+$usuarios = FormController::ctrSeleccionarRegistros(null, null);
 
 ?>
 
@@ -37,7 +37,7 @@ $usuarios = FormController::ctrSeleccionarRegistros();
             <td><?php echo $value["fecha"]?></td>
             <td>
                 <div class="btn-group">
-                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                    <a href="index.php?pages=edit&id=<?php echo $value["id"];?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                     <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </div>
             </td>

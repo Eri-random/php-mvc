@@ -55,6 +55,7 @@ session_start();
         if($_GET["pages"] == "register" ||
         $_GET["pages"] == "home" ||
         $_GET["pages"] == "logout" ||
+        $_GET["pages"] == "edit" ||
         $_GET["pages"] == "login"){
 
             include "pages/".$_GET["pages"].".php";
