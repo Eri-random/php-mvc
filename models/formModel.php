@@ -76,7 +76,28 @@ static public function mdlUpdateRegistration($table, $datos){
   }
 
 
-}
+  static public function mdlDeleteRegistration($tabla,$valor){
+  
+   $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+  
+   $stmt->bindParam(":id",$valor,PDO::PARAM_INT);
+
+  
+   if($stmt->execute()){
+      return true;
+   }else{
+       
+      print_r(Conexion::conectar()->errorInfo());
+   }
+  
+   $stmt->null;
+  }
+
+
+  }
+
+
+
 
 
 

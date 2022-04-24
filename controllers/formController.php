@@ -72,7 +72,7 @@ class FormController{
         }
     }
 
-    public function ctrUpdateRegistration(){
+    static public function ctrUpdateRegistration(){
 
         if(isset($_POST["actualizarName"])){
 
@@ -94,6 +94,22 @@ class FormController{
 
         $respuesta = formModel::mdlUpdateRegistration($tabla,$datos);
 
+        return $respuesta;
+
+        }
+
+    }
+
+    public function ctrDeleteRegistration(){
+
+        if(isset($_POST["eliminarRegistro"])){
+
+        $tabla="registros";
+
+        $valor=$_POST["eliminarRegistro"];
+
+        $respuesta = formModel::mdlDeleteRegistration($tabla,$valor);
+
         if($respuesta){
 
             echo '<script>
@@ -101,16 +117,17 @@ class FormController{
             if(window.history.replaceState){
                 window.history.replaceState(null, null, window.location.href);
             }
+
+             window.location = "index.php?pages=home";
             
             </script>';
 
-            echo '<div class="alert alert-success">El usuario ha sido actualizado</div>';
-
-        }
 
         }
 
     }
+
+}
 
 }
 

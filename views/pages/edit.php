@@ -49,8 +49,33 @@ if(isset($_GET["id"])){
 
     <?php
 
-    $actualizar = new FormController();
-    $actualizar->ctrUpdateRegistration();
+    $respuesta = FormController::ctrUpdateRegistration();
+
+    if($respuesta){
+
+        echo '<script>
+
+        if(window.history.replaceState){
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        </script>';
+
+        echo '<div class="alert alert-success">El usuario ha sido actualizado</div>
+
+        <script>
+
+        setTimeout( () =>{
+
+            window.location="index.php?pages=home";
+
+         },3000);
+        
+        </script>
+        
+        ';
+
+    }
 
     ?>
 

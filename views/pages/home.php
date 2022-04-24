@@ -29,7 +29,7 @@ $usuarios = FormController::ctrSeleccionarRegistros(null, null);
     </thead>
     <tbody>
 
-    <?php foreach($usuarios as $key => $value): ?>
+        <?php foreach($usuarios as $key => $value): ?>
         <tr>
             <td><?php echo ($key+1) ?></td>
             <td><?php echo $value["nombre"]?></td>
@@ -37,13 +37,33 @@ $usuarios = FormController::ctrSeleccionarRegistros(null, null);
             <td><?php echo $value["fecha"]?></td>
             <td>
                 <div class="btn-group">
-                    <a href="index.php?pages=edit&id=<?php echo $value["id"];?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <div class="px-1">
+
+                        <a href="index.php?pages=edit&id=<?php echo $value["id"];?>" class="btn btn-warning"><i
+                                class="fa fa-pencil"></i></a>
+                    </div>
+
+                    <form method="post">
+
+                        <input type="hidden" value="<?php echo $value["id"];?>" name="eliminarRegistro">
+
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+
+                        <?php
+
+                        $eliminar = new FormController();
+
+                        $eliminar->ctrDeleteRegistration();
+                        
+
+                        ?>
+
+                    </form>
                 </div>
             </td>
         </tr>
 
-    <?php endforeach ?>
-   
+        <?php endforeach ?>
+
     </tbody>
 </table>
