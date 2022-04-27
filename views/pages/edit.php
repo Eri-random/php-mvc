@@ -1,10 +1,10 @@
 <?php
 
-if(isset($_GET["id"])){
+if(isset($_GET["token"])){
 
-    $item = "id";
+    $item = "token";
 
-    $valor= $_GET["id"];
+    $valor= $_GET["token"];
 
     $usuario = FormController::ctrSeleccionarRegistros($item,$valor);
 
@@ -44,14 +44,16 @@ if(isset($_GET["id"])){
 
             
             <input type="hidden" name="passwordActual" value="<?php echo $usuario["password"]?>">
+            <input type="hidden" name="tokenUsuario" value="<?php echo $usuario["token"]?>">
+
         </div>
     </div>
 
     <?php
 
-    $respuesta = FormController::ctrUpdateRegistration();
+    $actualizar = FormController::ctrUpdateRegistration();
 
-    if($respuesta){
+    if($actualizar == "ok"){
 
         echo '<script>
 
@@ -74,6 +76,20 @@ if(isset($_GET["id"])){
         </script>
         
         ';
+
+    }
+
+    if($actualizar == "error"){
+
+        echo '<script>
+
+        if(window.history.replaceState){
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        </script>';
+
+        echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';
 
     }
 

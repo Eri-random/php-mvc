@@ -7,18 +7,19 @@ class formModel{
 static public function mdlRegistro($table, $datos){
 
  #statement: declaracion
- $stmt = Conexion::conectar()->prepare("INSERT INTO $table(nombre,email,password) VALUES 
- (:nombre, :email, :password)");
+ $stmt = Conexion::conectar()->prepare("INSERT INTO $table(token,nombre,email,password) VALUES 
+ (:token,:nombre, :email, :password)");
 
   //bindParam() Vincula una variable php a un parametro de sustitucion con nombre 
  //o signo de interrogacion
 
+ $stmt->bindParam(":token",$datos["token"],PDO::PARAM_STR);
  $stmt->bindParam(":nombre",$datos["nombre"],PDO::PARAM_STR);
  $stmt->bindParam(":email",$datos["email"],PDO::PARAM_STR);
  $stmt->bindParam(":password",$datos["password"],PDO::PARAM_STR);
 
  if($stmt->execute()){
-    return true;
+    return "ok";
  }else{
      
     print_r(Conexion::conectar()->errorInfo());
@@ -57,16 +58,16 @@ $stmt = null;
 
 static public function mdlUpdateRegistration($table, $datos){
 
-   $stmt = Conexion::conectar()->prepare("UPDATE $table SET nombre =:nombre, email=:email, password=:password WHERE id =:id");
+   $stmt = Conexion::conectar()->prepare("UPDATE $table SET nombre =:nombre, email=:email, password=:password WHERE token =:token");
   
    $stmt->bindParam(":nombre",$datos["nombre"],PDO::PARAM_STR);
    $stmt->bindParam(":email",$datos["email"],PDO::PARAM_STR);
    $stmt->bindParam(":password",$datos["password"],PDO::PARAM_STR);
-   $stmt->bindParam(":id",$datos["id"],PDO::PARAM_INT);
+   $stmt->bindParam(":token",$datos["token"],PDO::PARAM_STR);
 
   
    if($stmt->execute()){
-      return true;
+      return "ok";
    }else{
        
       print_r(Conexion::conectar()->errorInfo());
@@ -78,13 +79,13 @@ static public function mdlUpdateRegistration($table, $datos){
 
   static public function mdlDeleteRegistration($tabla,$valor){
   
-   $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+   $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE token = :token");
   
-   $stmt->bindParam(":id",$valor,PDO::PARAM_INT);
+   $stmt->bindParam(":token",$valor,PDO::PARAM_STR);
 
   
    if($stmt->execute()){
-      return true;
+      return "ok";
    }else{
        
       print_r(Conexion::conectar()->errorInfo());

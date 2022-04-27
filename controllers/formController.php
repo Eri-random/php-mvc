@@ -3,11 +3,19 @@ class FormController{
 
    static public function ctrRegister(){
 
+  
+
         if(isset($_POST["name"])){
+            if(preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ ]+$/',$_POST["name"]) &&
+            preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i',$_POST["email"]) &&
+            preg_match('/^[0-9a-zA-Z]+$/',$_POST["pwd"])){
 
             $tabla = "registros";
 
-            $datos = array("nombre" => $_POST["name"],
+            $token = md5($_POST["name"]."+".$_POST["email"]);
+
+            $datos = array("token" => $token,
+                           "nombre" => $_POST["name"],
                            "email" => $_POST["email"],
                            "password" => $_POST["pwd"]
         );
@@ -16,8 +24,14 @@ class FormController{
 
         return $respuesta;
 
-        }
+        }else{
 
+            $respuesta="error";
+            return $respuesta;
+
+        }
+    }
+    
     }
 
     static public function ctrSeleccionarRegistros($item,$valor){
@@ -76,54 +90,83 @@ class FormController{
 
         if(isset($_POST["actualizarName"])){
 
-            if($_POST["actualizarPassword"] != ""){
+            if(preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ ]+$/',$_POST["actualizarName"]) &&
+            preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i',$_POST["actualizarEmail"])){
 
-                $password = $_POST["actualizarPassword"];
+            $usuario = formModel::mdlSeleccionarRegistros("registros","token",$_POST["tokenUsuario"]);
 
-            }else{
-                $password = $_POST["passwordActual"];
-            }
+            $compararToken=md5($usuario["nombre"]."+".$usuario["email"]);
 
-            $tabla = "registros";
+                if($compararToken == $_POST["tokenUsuario"] ){
 
-            $datos = array("id" => $_GET["id"],
+                    if($_POST["actualizarPassword"] != ""){
+
+                        if(preg_match('/^[0-9a-zA-Z]+$/',$_POST["actualizarPassword"])){
+
+                            $password = $_POST["actualizarPassword"];
+                        }
+
+                     }else{
+                        $password = $_POST["passwordActual"];
+                    }
+
+                    $tabla = "registros";
+
+                    $datos = array("token" => $_POST["tokenUsuario"],
                            "nombre" => $_POST["actualizarName"],
                            "email" => $_POST["actualizarEmail"],
                            "password" => $password
                         );
 
-        $respuesta = formModel::mdlUpdateRegistration($tabla,$datos);
+                    $respuesta = formModel::mdlUpdateRegistration($tabla,$datos);
 
-        return $respuesta;
+                    return $respuesta;
+
+                }else{
+
+                    $respuesta="error";
+                    return $respuesta;
+                }
+            }else{
+
+                $respuesta="error";
+                return $respuesta;
+            }
 
         }
-
     }
 
     public function ctrDeleteRegistration(){
 
         if(isset($_POST["eliminarRegistro"])){
 
-        $tabla="registros";
+            $usuario = formModel::mdlSeleccionarRegistros("registros","token",$_POST["tokenUsuario"]);
 
-        $valor=$_POST["eliminarRegistro"];
+            $compararToken=md5($usuario["name"]."+".$usuario["email"]);
 
-        $respuesta = formModel::mdlDeleteRegistration($tabla,$valor);
+            if($compararToken == $_POST["eliminarRegistro"] ){
 
-        if($respuesta){
+                 $tabla="registros";
 
-            echo '<script>
+                $valor=$_POST["eliminarRegistro"];
 
-            if(window.history.replaceState){
-                window.history.replaceState(null, null, window.location.href);
-            }
+                $respuesta = formModel::mdlDeleteRegistration($tabla,$valor);
 
-             window.location = "index.php?pages=home";
+                if($respuesta =="ok"){
+
+                     echo '<script>
+
+                     if(window.history.replaceState){
+                        window.history.replaceState(null, null, window.location.href);
+                    }
+
+                     window.location = "index.php?pages=home";
             
-            </script>';
+                    </script>';
 
 
         }
+    }
 
     }
 
