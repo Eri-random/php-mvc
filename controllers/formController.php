@@ -57,6 +57,8 @@ class FormController{
 
         if($respuesta["email"] == $_POST["ingresoEmail"] && $respuesta["password"] == $_POST["ingresoPassword"]){
 
+             formModel::mdlUpdateErrors($tabla,0,$respuesta["token"]);
+
             $_SESSION["validarIngreso"] = "ok";
 
             echo '<script>
@@ -71,6 +73,16 @@ class FormController{
 
 
         }else{
+
+            if($respuesta["intentos_fallidos"] < 3){
+
+            $intentos = $respuesta["intentos_fallidos"]+1;
+
+            formModel::mdlUpdateErrors($tabla,$intentos,$respuesta["token"]);
+
+            }else{
+                echo '<div class="alert alert-warning">RECAPTCHA Debes validar que no eres un robot</div>';
+            }
 
             echo '<script>
 
