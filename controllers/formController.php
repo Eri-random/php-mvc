@@ -14,10 +14,12 @@ class FormController{
 
             $token = md5($_POST["name"]."+".$_POST["email"]);
 
+            $encriptarPassword = md5($_POST["pwd"]);
+
             $datos = array("token" => $token,
                            "nombre" => $_POST["name"],
                            "email" => $_POST["email"],
-                           "password" => $_POST["pwd"]
+                           "password" => $encriptarPassword
         );
 
         $respuesta = formModel::mdlRegistro($tabla,$datos);
@@ -53,9 +55,11 @@ class FormController{
 
         $valor=$_POST["ingresoEmail"];
 
+        $encriptarPassword = md5($_POST["ingresoPassword"]);
+
         $respuesta = formModel::mdlSeleccionarRegistros($tabla,$item,$valor);
 
-        if($respuesta["email"] == $_POST["ingresoEmail"] && $respuesta["password"] == $_POST["ingresoPassword"]){
+        if($respuesta["email"] == $_POST["ingresoEmail"] && $respuesta["password"] == $encriptarPassword){
 
              formModel::mdlUpdateErrors($tabla,0,$respuesta["token"]);
 
@@ -115,7 +119,9 @@ class FormController{
 
                         if(preg_match('/^[0-9a-zA-Z]+$/',$_POST["actualizarPassword"])){
 
-                            $password = $_POST["actualizarPassword"];
+                            $encriptarPassword = md5($_POST["actualizarPassword"]);
+
+                            $password = $encriptarPassword;
                         }
 
                      }else{
