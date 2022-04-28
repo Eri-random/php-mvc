@@ -113,7 +113,7 @@ class FormController{
 
             $compararToken=md5($usuario["nombre"]."+".$usuario["email"]);
 
-                if($compararToken == $_POST["tokenUsuario"] ){
+                if($compararToken == $_POST["tokenUsuario"] && $_POST["idUsuario"] == $usuario["id"] ){
 
                     if($_POST["actualizarPassword"] != ""){
 
@@ -130,7 +130,11 @@ class FormController{
 
                     $tabla = "registros";
 
-                    $datos = array("token" => $_POST["tokenUsuario"],
+                    $actualizarToken=md5($_POST["actualizarName"]."+".$_POST["actualizarEmail"]);
+
+                    $datos = array(
+                           "id" => $_POST["idUsuario"],
+                           "token" => $actualizarToken,
                            "nombre" => $_POST["actualizarName"],
                            "email" => $_POST["actualizarEmail"],
                            "password" => $password
