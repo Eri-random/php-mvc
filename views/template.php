@@ -26,19 +26,19 @@ session_start();
         <div class="container">
             <ul class="nav nav-justified py-2 nav-pills">    
                 <li class="nav-item">
-                    <a href="index.php?pages=register" class="nav-link">Registro</a>
+                    <a href="register" class="nav-link">Registro</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?pages=login" class="nav-link active">Ingreso</a>
+                    <a href="login" class="nav-link active">Ingreso</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?pages=home" class="nav-link">Inicio</a>
+                    <a href="home" class="nav-link">Inicio</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?pages=logout" class="nav-link">Salir</a>
+                    <a href="logout" class="nav-link">Salir</a>
                 </li>
             </ul>
         </div>

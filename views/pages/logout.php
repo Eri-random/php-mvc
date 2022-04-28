@@ -2,6 +2,6 @@
 
 session_destroy();
 
-echo '<script>window.location = "index.php?pages=login";</script>';
+echo '<script>window.location = "login";</script>';
 
 ?>

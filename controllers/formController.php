@@ -71,7 +71,7 @@ class FormController{
                 window.history.replaceState(null, null, window.location.href);
             }
 
-             window.location = "index.php?pages=home";
+             window.location = "home";
             
             </script>';
 
@@ -178,7 +178,7 @@ class FormController{
                         window.history.replaceState(null, null, window.location.href);
                     }
 
-                     window.location = "index.php?pages=home";
+                     window.location = "home";
             
                     </script>';
 

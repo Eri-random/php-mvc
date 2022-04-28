@@ -69,7 +69,7 @@ if(isset($_GET["token"])){
 
         setTimeout( () =>{
 
-            window.location="index.php?pages=home";
+            window.location="home";
 
          },3000);
         

@@ -2,12 +2,12 @@
 
 if(!isset($_SESSION["validarIngreso"])){
 
-    echo '<script>window.location= "index.php?pages=login";</script>';
+    echo '<script>window.location= "login";</script>';
 
 }else{
     if($_SESSION["validarIngreso"] != "ok"){
 
-        echo '<script>window.location= "index.php?pages=login";</script>';
+        echo '<script>window.location= "login";</script>';
     
         return;
     }
